@@ -1,0 +1,22 @@
+# Place any binaries you'd like homebrew to install on your system in this file
+# Each binary should be on its own line without any non-printing characters before it
+# Binary list:
+
+wget
+git
+graphicsmagick
+webkit2png
+rename
+zopfli
+ffmpeg
+python
+sshfs
+trash
+node
+tree
+ack
+hub
+php56
+ruby
+redis
+mongodb

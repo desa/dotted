@@ -1,0 +1,5 @@
+mocha
+chai
+nodemon
+express
+sequelize-cli
