@@ -47,3 +47,19 @@ else
   echo "Cask and applications not installed"
   echo
 fi
+
+
+
+# Now do some git setup
+# First, let's ask the user what they want to do:
+
+echo "Beginning setup of .gitconfig..."
+if [[ $(confirm) == "yes" ]]; then
+  echo "inside if"
+  git config --global user.name "boichee" 
+fi
+
+
+
+
+

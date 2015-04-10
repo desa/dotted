@@ -1,0 +1,50 @@
+[user]
+	name = Brett Levenson 
+	email = bhlevenson@gmail.com 
+[merge]
+	conflictstyle = diff3
+[diff]
+	tool = Kaleidoscope
+[core]
+	excludesfile = ~/.gitignore
+	editor = subl -n -w
+[color]
+	ui = auto
+[alias]
+	a = add
+	aa = add --all
+	ac = add .
+	ci = commit -v
+	car = commit -v --amend --reset-author
+	st = status -sb
+	dc = diff --cached
+	co = checkout
+	ci = commit
+	cim = commit -m
+	pl = pull --ff-only --prune
+	ff = merge --ff-only
+	mg = merge --no-ff
+	purb = pull --rebase
+	ps = push
+	pso = push origin
+	br = branch -vv
+	l = log --graph --pretty=tformat:'%C(red)%h%C(reset)%C(magenta)%d%C(reset) %s %>|(72)%C(cyan)%aN%C(reset) %C(yellow)%ad%C(reset) %C(green)(%cd)%C(reset)' --date=relative
+	lt = log --graph --pretty=tformat:'%C(red)%h%C(reset)%C(magenta)%d%C(reset) %s %>|(72)%C(cyan)%aN%C(reset) %C(yellow)%ar%C(reset) on %C(yellow)%ad%C(reset) %C(green)(%cr%C(reset) on %C(green)%cd)%C(reset)' --date=rfc
+	lg = log --decorate --graph --date=relative --stat
+	lu = !"cd \"$GIT_PREFIX\" && git l @{u}^! HEAD"
+	rootgrep = !git grep ; since "shell commands will be executed from the top-level directory of a repository" - git help config
+	rebasec = rebase --continue
+	rt = reset
+	unstage = reset HEAD
+	unstageh = reset --hard HEAD
+[rerere]
+	enabled = true
+[difftool "Kaleidoscope"]
+	cmd = ksdiff-wrapper git \"$LOCAL\" \"$REMOTE\"
+[difftool]
+	prompt = false
+[push]
+	default = upstream
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f

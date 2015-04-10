@@ -28,7 +28,7 @@ confirm() {
     echo "yes"
   else
     local choice
-    read -p "Continue (y/n): " choice
+    read -p "Continue (y/n): " -n 1 -r choice
     case "$choice" in 
       y|Y ) echo "yes";;
       n|N ) echo "no";;
