@@ -4,6 +4,9 @@
 # `sudo -v` then:
 # `sudo bash system_setup.sh`
 
+# This helps us get our bearings so we can use file paths based on each script's location
+DOTTED_ROOT="$(echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )")"
+
 
 
 
@@ -11,13 +14,13 @@
 echo "Preparing to install homebrew and binaries..."
 if [ "$(confirm)" == "yes" ]; then
   # User confirmed installation, so we continue
-  source "scripts/brew_setup.sh"
+  source "$DOTTED_ROOT/scripts/brew_setup.sh"
   
   # Check that the install went ok
   installCompleted "$?" "Homebrew"
 else
   # User did not confirm install
-  echo "Homebrew and binaries not installed"
+  echo "User cancelled setup. Homebrew and binary packages not installed." 1>&2
   echo
 fi
 
@@ -30,7 +33,7 @@ if [ "$(confirm)" == "yes" ]; then
   # Check to make sure install completed successfully
   installCompleted "$?" "RVM" 
 else
-  echo "RVM not installed."
+  echo "User cancelled setup of RVM. Not installed." 1>&2
   echo
 fi
 
@@ -38,26 +41,38 @@ fi
 echo "Preparing to install homebrew cask and OS X applications..."
 if [ "$(confirm)" == "yes" ]; then
   # User confirms
-  source "scripts/cask_setup.sh"
+  source "$DOTTED_ROOT/scripts/cask_setup.sh"
 
   # Confirm that install was successful
   installCompleted "$?" "Cask"
 else
   # User did not approve
-  echo "Cask and applications not installed"
+  echo "User cancelled. Cask and application packages not installed." 1>&2
   echo
 fi
 
 
 
 # Now do some git setup
-# First, let's ask the user what they want to do:
+echo "Preparing to setup git..."
+if [[ "$(confirm)" == "yes" ]]; then
+  # User has confirmed
+  source "$DOTTED_ROOT/scripts/git_setup.sh"
 
-echo "Beginning setup of .gitconfig..."
-if [[ $(confirm) == "yes" ]]; then
-  echo "inside if"
-  git config --global user.name "boichee" 
+  # Confirm that git setup was completed successfully
+  installCompleted "$?" "git setup"
+else 
+  echo "User cancelled Git setup." 1>&2
+
 fi
+
+
+# Ok, finally, time to do some shell setup
+
+# BASH setup
+
+
+# ZSH setup
 
 
 

@@ -1,15 +1,15 @@
-#!/bin/bash
-# Find the current scripts directory:
-SCRIPT_DIR="$(echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )")"
-
-# Load up the dependencies
-source "${SCRIPT_DIR}/dependencies/functions.sh"
+# git_setup.sh
+# dotted, by Brett Levenson
+# Last Modified: 4/9/15
+# 
+# This file copies the global git configuration into the root directory and 
+# then helps the user set up some basics that need to be configured
 
 
 echo "Beginning setup of .gitconfig..."
 if [[ $(confirm) == "yes" ]]; then
 	# First we need to copy our .gitconfig file to the user's home directory
-	cp "../assets/files/gitconfig" "$USERDIR/.gitconfig"
+	cp "$DOTTED_ROOT/assets/files/gitconfig" "/Users/$USER/.gitconfig"
 
 	# Now that's done, we can start editing the git configuration file
 	echo
@@ -21,4 +21,8 @@ if [[ $(confirm) == "yes" ]]; then
 	# Setup git email
 	read -p "Please enter your Git or GitHub email address: " -r git_email
 	git config --global user.email "$git_email"
+
+
+	# Finally, create the global ".gitignore" file (with node_modules excluded, of course)
+	echo "node_modules" >> "/Users/$USER/.gitignore"
 fi

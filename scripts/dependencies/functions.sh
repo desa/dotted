@@ -43,7 +43,7 @@ installCompleted() {
   if [ "$1" == "0" ]; then
     echo "${2} install finished successfully."
   else
-    echo "Something went wrong during the installation of ${2}."
+    echo "Something went wrong during the installation of ${2}." 1>&2
   fi
   echo
 }
@@ -53,7 +53,7 @@ installCompleted() {
 # No need to type 'array/' into "fileToRead" as that is set automatically.
 fileToArray() {
   # This function reads a file but ignores lines beginning with #, a newline or spaces
-  local filepath="assets/" # Change the value of filepath to read files in a different dir
+  local filepath="$DOTTED_ROOT/assets/" # Change the value of filepath to read files in a different dir
 
   # initializing local vars
   local line # stores current line in the read

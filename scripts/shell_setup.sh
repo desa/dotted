@@ -3,12 +3,6 @@
 
 ZSH_ALIASES="$USERDIR/.oh-my-zsh/custom/zsh_aliases.zsh"
 
-touch "$ZSH_ALIASES"
-
-# Let's add a first line to the file
-echo "# Additional Aliases to Use in zsh\n" >> "$ZSH_ALIASES"
-
- 
 # Now we'll add some aliases to that file
 aliases=(
   "reld='. ~/.zshrc'" 
@@ -17,17 +11,27 @@ aliases=(
   "gti='git'"
   "got='git'"
   "gpo=\'git push origin \$(current_branch)\'"
+  "ga='git add'"
+  "gaa='git add --all'"
+  "gs='git st'"
   "rr='rm -r'"
   "rrf='rm -rf'"
+  "cpdir='cp -R'"
 ) 
 
+touch "$ZSH_ALIASES"
 
-# Now we run a loop to insert all of these into our new "aliases" file
-for i in "${aliases[@]}"
-do
-  echo "Adding alias $i ..."
-  echo "alias "$i >> "$ZSH_ALIASES"
-done
+# Let's add a first line to the file
+echo "# Additional Aliases to Use in zsh\n" >> "$ZSH_ALIASES"
+
+# now insert our aliases into our new "aliases" file
+printf "alias %s\n" "${aliases[@]}" >> "$ZSH_ALIASES" # I think this should work well and it won't need to run a loop
+
+# for i in "${aliases[@]}"
+# do
+#   echo "Adding alias $i ..."
+#   echo "alias "$i >> "$ZSH_ALIASES"
+# done
 
 
 # One more thing, let's create a custom "functions" file for oh-my-zsh
