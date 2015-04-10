@@ -60,7 +60,7 @@ fileToArray() {
   while read line
   do
     # Check to make sure a line doesn't begin with either a "#" or a " " (space)
-    [[ "$line" =~ ^[\#\n[:space:]].*$ ]] && continue
+    [[ "$line" =~ ^[\#\n[:space:]].*$ ]] && continue # If line begins with characters that are not allowed, skip this run of the loop
     arr[$i]="$line"
     ((i+=1))
   done < "${filepath}$1"
