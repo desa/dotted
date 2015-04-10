@@ -1,4 +1,5 @@
 # npm_packages
+# Modified: 4/9/15
 # Insert any NPM packages that you would like to install GLOBALLY below
 # Note, global installation entails use of the -g flag in "npm install package" command
 
