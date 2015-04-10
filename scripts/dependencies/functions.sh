@@ -54,20 +54,23 @@ installCompleted() {
 fileToArray() {
   # This function reads a file but ignores lines beginning with #, a newline or spaces
   local filepath="assets/" # Change the value of filepath to read files in a different dir
-  local i=0
-  local arr=()
-  local line
-  while read line
-  do
-    # Check to make sure a line doesn't begin with either a "#" or a " " (space)
-    if [[ "$line" =~ ^[^\#\n[:space:]].*$ ]]; then 
-      arr[$i]="$line"
-      ((i+=1))
+
+  # initializing local vars
+  local line # stores current line in the read
+
+  # indicate what characters (at the start of a line) should cause that line to be skipped
+  local chars_to_ignore=("#" "\n" "[:space:]")
+  # local chars_to_ignore="\#\n[:space:]" # I'm leaving this here for now in case the array version of the "chars" to ignore stops working for some reason
+
+  while read line; do
+    # Check to make sure a line doesn't begin with any of the characters in $chars_to_ignore
+    if [[ "$line" =~ ^[^${chars_to_ignore[@]}] ]]; then 
+      echo "$line"
     fi
   done < "${filepath}$1"
 
-  # Return the new array of stuff
-  echo "${arr[@]}"
-
 }
+
+
+
 

@@ -6,6 +6,9 @@ SCRIPT_DIR="$(echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )")"
 source "${SCRIPT_DIR}/dependencies/functions.sh"
 
 
-binaries=($(fileToArray brew_binaries))
+binaries=($(fileToArray $1))
 
-echo ${binaries[@]}
+echo "${binaries[@]}"
+
+echo "${#binaries[*]}"
+echo $IFS
