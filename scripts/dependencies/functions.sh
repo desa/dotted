@@ -60,10 +60,9 @@ fileToArray() {
   while read line
   do
     # Check to make sure a line doesn't begin with either a "#" or a " " (space)
-    if [[ "$line" =~ ^[^\#\n[:space:]].*$ ]]; then 
-      arr[$i]="$line"
-      ((i+=1))
-    fi
+    [[ "$line" =~ ^[\#\n[:space:]].*$ ]] && continue
+    arr[$i]="$line"
+    ((i+=1))
   done < "${filepath}$1"
 
   # Return the new array of stuff
