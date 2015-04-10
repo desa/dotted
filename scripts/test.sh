@@ -1,11 +1,9 @@
 #!/bin/bash
+# Find the current scripts directory:
+SCRIPT_DIR="$(echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )")"
 
-# 
-
-# echo "Bash source is:"
-# echo "${BASH_SOURCE[0]}"
-
-source "$(echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )")"/dependencies/functions.sh
+# Load up the dependencies
+source "${SCRIPT_DIR}/dependencies/functions.sh"
 
 
 binaries=($(fileToArray brew_binaries))

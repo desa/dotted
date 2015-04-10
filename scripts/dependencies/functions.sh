@@ -4,7 +4,7 @@
 # This file contains functions and other dependencies that the main
 # setup script will rely upon to do its work.
 
-# VARS
+# Script VARS
 
 # We're going to need to know the current user dir throughout this script
 USERDIR="/Users/$USER"

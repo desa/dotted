@@ -20,8 +20,8 @@ echo "Tapping caskroom/fonts..."
 brew tap caskroom/fonts
 
 # Get the fonts to install
-fonts=($(cat "assets/cask_fonts"))
+fonts=($(fileToArray cask_fonts))
 
 # install Homebrew Cask fonts
-echo "installing fonts..."
+echo "Installing fonts..."
 brew cask install ${fonts[@]}
