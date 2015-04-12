@@ -1,0 +1,63 @@
+# ~/.bash_profile
+# Last Modified: 4/11/15
+# Author: Brett Levenson
+
+# Description:
+# This file is what starts configuration of bash when a new interactive bash shell is opened
+
+# How it works:
+# Think of this as the main control file, which calls upon:
+# .bashrc, .bash_functions, .bash_aliases, and .bash_vars to get your shell environment set up
+
+# File descriptions:
+# .bashrc = Main command file, sets up shell colors and other important stuff
+# .bash_functions = Any custom functions you'd like to make available in your shell should go in this file
+# .bash_aliases = Any custom aliases you'd like to make available in your shell should go in this file
+# .bash_vars = Any custom vars you'd like to make available in your shell should go in this file
+
+
+# Making some modifications to PATH
+# Check that PATH does not already include /usr/local
+if [[ ! "$PATH" == *"/usr/local"* ]]; then
+	# If we're here, then the PATH var does not yet contain /usr/local, so we add it
+	PATH=/usr/local/sbin:/usr/local/bin:$PATH
+fi
+
+# Now add PATH to the environment
+export PATH
+
+# Color definitions
+# Add the .bash_colors file to the environment
+if [ -f ~/.bash_colors ]; then
+  . ~/.bash_colors
+fi
+
+# Variable defnitions
+# Add .bash_vars to the environment
+if [ -f ~/.bash_vars ]; then
+  . ~/.bash_vars
+fi
+
+# Function definitions
+# .bash_functions added to environment
+if [ -f ~/.bash_functions ]; then
+    . ~/.bash_functions
+fi
+
+# Run the statements in bashrc
+if [ -f ~/.bashrc ]; then
+  . ~/.bashrc
+fi
+
+# Alias definitions.
+# Adding .bash_aliases to the environment
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# Add git command completion for bash
+# .git-completion.bash added to the environment
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
+

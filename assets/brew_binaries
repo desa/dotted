@@ -1,4 +1,4 @@
-# brew_binaries
+# dotted/assets/brew_binaries
 # Modified: 4/9/15
 # Place any binaries you'd like homebrew to install on your system in this file
 # Each binary should be on its own line without any non-printing characters before it
@@ -22,3 +22,4 @@ php56
 ruby
 redis
 mongodb
+tmux

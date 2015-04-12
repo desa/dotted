@@ -68,13 +68,17 @@ fi
 
 
 # Ok, finally, time to do some shell setup
+echo "Preparing to setup your shell..."
+if [[ "$(confirm)" == "yes" ]]; then
+  # User has confirmed
+  source "$DOTTED_ROOT/scripts/shell_setup.sh"
 
-# BASH setup
+  # Confirm that git setup was completed successfully
+  installCompleted "$?" "shell setup"
+else 
+  echo "User cancelled shell setup." 1>&2
 
-
-# ZSH setup
-
-
+fi
 
 
 

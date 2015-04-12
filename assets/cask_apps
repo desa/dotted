@@ -1,4 +1,4 @@
-# cask_apps
+# dotted/assets/cask_apps
 # Modified: 4/9/15
 # Place any apps you'd like cask to install on your system in this file
 # Each app should be on its own line without any spaces in front of it
@@ -12,6 +12,7 @@ qlcolorcode
 screenflick
 slack
 transmit
+cyberduck
 appcleaner
 firefox
 hazel

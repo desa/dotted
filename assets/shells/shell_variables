@@ -1,0 +1,20 @@
+# dotted/assets/shell_variables
+# Last Modified: 4/11/15
+# Author: Brett Levenson
+#
+# Put any variables you'd like to have in your bash environment or just available for scripting here
+
+# Environment vars to make available
+
+export HOMEBREW_GITHUB_API_TOKEN=b2bb2f329209201dc35600be3fe24635e6410f0f
+
+
+# ---------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------
+
+
+# Non-environment variables to make available to scripts and your shell
+# Example: If you frequently access a directory, you can put that directory path in a variable
+# 			this will allow you to access that directory with `cd $somevar`
+
+ga="$HOME/GA/sf-wdi-17"

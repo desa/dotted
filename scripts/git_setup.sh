@@ -9,7 +9,7 @@
 echo "Beginning setup of .gitconfig..."
 if [[ $(confirm) == "yes" ]]; then
 	# First we need to copy our .gitconfig file to the user's home directory
-	cp "$DOTTED_ROOT/assets/files/gitconfig" "/Users/$USER/.gitconfig"
+	cp "$DOTTED_ROOT/assets/files/gitconfig" "$HOME/.gitconfig"
 
 	# Now that's done, we can start editing the git configuration file
 	echo
@@ -24,5 +24,5 @@ if [[ $(confirm) == "yes" ]]; then
 
 
 	# Finally, create the global ".gitignore" file (with node_modules excluded, of course)
-	echo "node_modules" >> "/Users/$USER/.gitignore"
+	echo "node_modules" >> "$HOME/.gitignore"
 fi

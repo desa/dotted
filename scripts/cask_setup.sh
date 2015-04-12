@@ -9,7 +9,7 @@ apps=($(fileToArray cask_apps))
 brew tap caskroom/versions
 
 # Install Homebrew Cask apps
-# Default is: /Users/$USER/Applications
+# Default is: $HOME/Applications
 # To install to /Applications, set --appdir=/Applications flag
 echo "installing apps..."
 brew cask install ${apps[@]}

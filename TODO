@@ -1,0 +1,12 @@
+# TODO
+
+  - Complete shell environment setup
+      + Which means I have to modify the "shell_setup.sh" file to call upon bash_shell_setup.bash or zsh_shell_setup.zsh.
+      + I'll also need to update those two scripts to actually do the work of setting up the shell based on which shell is currently running.
+          * Which means copying over the relevant shell setup files in assets/files
+  - Complete git setup
+      + Add scripting to move gitconfig into the home directory
+      + Add scripting to add a main ~/.gitignore file with "node_modules" already added
+
+  - Look at your use of RVM
+      + Is it ok to use homebrew to install ruby AND to use RVM?

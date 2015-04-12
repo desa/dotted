@@ -1,0 +1,148 @@
+# ~/.bash_functions
+# Last Modified: 4/11/15
+# Author: Brett Levenson
+
+# Description:
+# This file is part of your overall bash setup.
+# It defines custom functions
+
+# function to create new dir and then change location
+
+
+function MakeDirAndChange() {
+  mkdir $1
+  cd $1
+}
+
+alias mkcd=MakeDirAndChange
+
+
+function RSpecWithDocFormat() {
+  rspec $1 --format doc
+}
+
+alias rspecd=RSpecWithDocFormat
+alias specd=RSpecWithDocFormat
+
+function StartPHPPGAdmin {
+  CURDIR=$(pwd)
+  cd ~/Dev/_utils/phpPgAdmin-5.1
+  php -S localhost:8080 &
+  open http://localhost:8080/
+  cd $CURDIR
+  fg
+}
+
+alias phppgadmin=StartPHPPGAdmin
+
+
+
+
+# The following function allows me to jump to a particular point in the WDI17 repo
+
+function goto_wdi_repo_point {
+
+  if [ ! -z "$ga" ]; then
+    # if the var $ga is defined then continue, else quit now
+    echo "An error occured: The variable '$ga' must be defined before this function can be used."
+    exit 1
+  fi
+
+  # If we're here then $ga was defined and we are good to go
+  cd "$ga/notes/$1"* # first try to match the 1st argument against the notes repo root
+  if [ "$?" != "0" ]; then # If cd was not successful, return an error and exit
+    echo "Something went wrong while cd'ing at the root of the notes repo." 1>&2;
+    return 1;
+  fi
+
+  if [ ! -z "$2" ]; then
+    # Uses a wildcard to match the week directory whether the number entered is 1 or 2 digits.
+    cd "week-"*"$2"
+
+    # Now check if that cd was successful and if not, return an error and exit.
+    if [ "$?" != "0" ]; then
+      echo "This part of the repo does not have directories for each week." 1>&2;
+      return 1;
+    fi
+
+    # If a second argument exists, then I've provided a week to enter
+
+    # This code was a more specific check to see if the week was 1 or 2 digits before I remembered I could use wildcard expansion with cd
+    # if [ ${#2} -gt 1 ]; then
+    #   cd "week-$2"
+    #   echo "Entered week-$2" 1>&2;
+    # else
+    #   cd "week-0$2"
+    #   echo "Entered week-0$2" 1>&2;
+    # fi
+    
+  fi
+
+  if [ ! -z "$3" ]; then
+    # If a third argument is non-empty, then I've provided a day to enter
+    cd "_$3"*
+
+    # Error check
+    if [ "$?" != "0" ]; then # If return status of CD is not 0 (success), then return an error and stop.
+      echo "This part of the repo does not include folders for days of the week." 1>&2;
+      return 1;
+    fi
+  fi
+
+  if [ ! -z "$4" ]; then
+    case $4 in
+      am|a|dawn)
+        cd dawn;
+        # echo "Entering dawn" 1>&2;
+        if [ "$?" != "0" ]; then # If return status of cd is not 0, then throw an error.
+          echo "The dawn directory does not exist in this part of the repo." 1>&2;
+          return 1;
+        fi
+      ;;
+      pm|p|dusk)
+        cd dusk;
+        # echo "Entering dusk" 1>&2;
+        if [ "$?" != "0" ]; then # If return status of cd is not 0, then throw an error.
+          echo "The dusk directory does not exist in this part of the repo." 1>&2;
+          return 1;
+        fi
+      ;;
+      *)
+        echo "The 4th argument must be either am or pm to indicate dawn or dusk" 1>&2;
+        return 1;
+    esac
+  fi
+}
+
+alias wdi='goto_wdi_repo_point'
+
+
+# Create new users from the command line in one step
+# Notes: Arguments are as follows:
+# $1: shortname, $2: real name, $3: unique_id, $4: "admin" when you want the user to have admin privs
+
+
+function createUser {
+
+  dscl . create "/Users/$1"
+  dscl . create "/Users/$1" UserShell "$(which bash)"
+  dscl . create "/Users/$1" RealName "$2"
+  dscl . create "/Users/$1" UniqueID "$3"
+  dscl . create "/Users/$1" PrimaryGroupID 1000
+  dscl . create "/Users/$1" NFSHomeDirectory "/Local/Users/$1"
+  dscl . passwd "/Users/$1" password
+
+  if [ "$4" -eq "admin" ]; then
+    dscl . append /Groups/admin GroupMembership "$1"
+  fi
+
+  return 0;
+}
+
+function convertMdToHtm {
+  html_name=$(echo "$1" | cut -d '.' --complement -f2-)".html";
+  python -m markdown "$1" > "$html_name";
+  open "$html_name";
+}
+
+alias m2h='convertMdToHtm'

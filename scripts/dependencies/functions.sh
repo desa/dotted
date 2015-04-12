@@ -6,10 +6,6 @@
 
 # Script VARS
 
-# We're going to need to know the current user dir throughout this script
-USERDIR="/Users/$USER"
-
-
 # FUNCTIONS
 
 # Check to see if the --force flag has been set
