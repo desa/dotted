@@ -1,5 +1,12 @@
-mocha
-chai
+# dotted/assets/npm_packages
+# Modified: 4/9/15
+# Insert any NPM packages that you would like to install GLOBALLY below
+# Note, global installation entails use of the -g flag in "npm install package" command
+
+# To remove a package from the list place a '#' as the first character of the line (or delete the line)
+
 nodemon
 express
 sequelize-cli
+mocha
+chai

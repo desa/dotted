@@ -1,0 +1,50 @@
+# ~/.bash_profile
+# Last Modified: 4/11/15
+# Author: Brett Levenson
+
+# Description:
+# This file is what starts configuration of bash when a new interactive bash shell is opened
+
+# How it works:
+# Think of this as the main control file, which calls upon:
+# .bashrc, .bash_functions, .bash_aliases, and .bash_vars to get your shell environment set up
+
+# File descriptions:
+# .bashrc = Main command file, sets up shell colors and other important stuff
+# .bash_functions = Any custom functions you'd like to make available in your shell should go in this file
+# .bash_aliases = Any custom aliases you'd like to make available in your shell should go in this file
+# .bash_vars = Any custom vars you'd like to make available in your shell should go in this file
+
+
+# Making some modifications to PATH
+# Check that PATH does not already include /usr/local
+if [[ ! "$PATH" == *"/usr/local"* ]]; then
+	# If we're here, then the PATH var does not yet contain /usr/local, so we add it
+	PATH=/usr/local/sbin:/usr/local/bin:$PATH
+fi
+
+# Now add PATH to the environment
+export PATH
+
+# => Move the global_config_files setup here to have bash specific files override them
+
+# BASH SPECIFIC CONFIGURATION
+# ------------------------------------------------------------------------------------------------
+config_files=(".bash_colors" ".bash_vars" ".bash_functions" ".bashrc" ".bash_aliases" ".git-completion.bash")
+for file in "${config_files[@]}"; do
+	if [ -f ~/"$file" ]; then
+		source ~/"$file"
+	fi
+done
+
+# GLOBAL (ALL SHELLS) CONFIGURATION
+# ------------------------------------------------------------------------------------------------
+# If you don't want the global config files to override the bash specific files, then move this up above the previous statements
+# If you don't want these to do anything, just comment out these lines
+global_config_files=(".shell_variables" ".shell_aliases" ".shell_functions" )
+# load each file in "global_config_files" in the order they appear in the array
+for file in "${global_config_files[@]}"; do
+	if [ -f ~/"$file" ]; then
+		source ~/"$file"
+	fi	
+done

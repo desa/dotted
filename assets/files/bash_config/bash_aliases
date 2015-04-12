@@ -1,0 +1,111 @@
+# ~/.bash_aliases
+# Last Modified: 4/11/15
+# Author: Brett Levenson
+
+# Description:
+# This file is part of your overall bash setup.
+# It defines some custom aliases
+
+# ls aliases
+alias ls='gls --color=auto'
+alias -s ls='gls' # Suffix alias
+alias ll='ls -lh'
+alias la='ls -A'
+alias lla='ls -lAh'
+alias l='ls -CF'
+alias llc='ls -CFl'
+alias lh='ls -h'
+
+# Directory aliases
+alias pu='pushd'
+alias po='popd'
+alias 1='cd -'
+alias d='dirs'
+
+# grep aliases
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# Process commands
+alias psgrep='ps -ax | grep'
+
+# git standard aliases
+alias g='git'
+alias ga='git add'
+alias gai='git add --interactive'
+alias gap='git add --patch'
+alias gb='git branch'
+alias gc='git commit'
+alias gd='git diff'
+alias gk='gitk --all&'
+alias go='git checkout'
+alias gom='git checkout master'
+alias gs='git st'
+alias gss='git status'
+alias gsu='git status --untracked-files=all'
+
+# some custom git aliases 
+alias 'gc!'='git commit --amend'
+alias gcm='git commit -m'
+alias 'gcm!'='git commit --amend -m'
+alias gob='git checkout -b'
+alias gl='git l'
+alias gaa='git add --all'
+alias ga.='git add .'
+alias gpnp='git pull && git push origin $(current_branch)'
+
+# bash aliases
+alias rr='rm -r'
+alias rrf='rm -rf'
+alias cpdir='cp -R'
+
+# node aliases
+alias sqdb='sequelize db:migrate'
+alias sqmc='sequelize model:create'
+alias sqmg='sequelize migration:create'
+
+# pg aliases
+alias cdb='createdb'
+
+# ruby aliases
+alias spec='rspec'
+alias bspec='bin/rspec'
+alias be='bundle exec'
+
+# Rails Aliases
+alias rdm='rake db:migrate'
+
+# Shortcuts to review bash files
+alias cta='cat ~/.bash_aliases'
+alias ctg='cat ~/.gitconfig'
+alias vta='vim ~/.bash_aliases'
+alias vtg='vim ~/.gitconfig'
+alias ctf='cat ~/.bash_functions'
+alias vtf='vim ~/.bash_functions'
+alias ctv='cat ~/.bash_vars'
+alias vtv='vim ~/.bash_vars'
+
+# Shortcut to Reload Bash Profile
+if [ "$SHELL" == "BASH" ]; then
+	alias reld='source ~/.bash_profile'
+elif [ "$SHELL" == "ZSH" ]; then
+	alias reld='source ~/.zshrc'
+fi
+
+# Aliases for Typos
+alias gti='git'
+alias got='git'
+alias gut='git'
+alias rpsec='rspec' # To deal with a common typo I make when typing rspec
+alias bpsec='bspec'
+
+# Python Aliases
+alias pyserv='python -m SimpleHTTPServer'
+
+# Aliases for Web Servers
+alias run_phpPgAdmin='cd ~/Dev/_utils/phpPgAdmin-5.1/ && (php -S localhost:8080 >&/usr/local/opt/php56/bin/running_phpPgAdmin.log &) && open http://localhost:8080/'
+
+# Helpful shortcuts
+alias hd='head -n 10'
+alias cask='brew cask'

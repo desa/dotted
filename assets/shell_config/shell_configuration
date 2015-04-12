@@ -1,0 +1,12 @@
+# dotted/assets/shell_configuration
+# Last Modified: 4/11/15
+# Author: Brett Levenson
+#
+# This file just runs the other 3 configuration files:
+# shell_aliases
+# shell_functions
+# shell_variables
+
+source ~/.shell_variables
+source ~/.shell_aliases
+source ~/.shell_functions

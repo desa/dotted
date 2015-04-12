@@ -6,10 +6,6 @@
 
 # Script VARS
 
-# We're going to need to know the current user dir throughout this script
-USERDIR="/Users/$USER"
-
-
 # FUNCTIONS
 
 # Check to see if the --force flag has been set
@@ -27,8 +23,9 @@ confirm() {
   if [ "$FORCE_CONFIRM" = true ]; then
     echo "yes"
   else
+    [ ! -z "$1" ] && echo "$1"
     local choice
-    read -p "Continue (y/n): " choice
+    read -p "Continue (y/n): " -n 1 -r choice
     case "$choice" in 
       y|Y ) echo "yes";;
       n|N ) echo "no";;
@@ -43,7 +40,7 @@ installCompleted() {
   if [ "$1" == "0" ]; then
     echo "${2} install finished successfully."
   else
-    echo "Something went wrong during the installation of ${2}."
+    echo "Something went wrong during the installation of ${2}." 1>&2
   fi
   echo
 }
@@ -53,20 +50,24 @@ installCompleted() {
 # No need to type 'array/' into "fileToRead" as that is set automatically.
 fileToArray() {
   # This function reads a file but ignores lines beginning with #, a newline or spaces
-  local filepath="assets/" # Change the value of filepath to read files in a different dir
-  local i=0
-  local arr=()
-  local line
-  while read line
-  do
-    # Check to make sure a line doesn't begin with either a "#" or a " " (space)
-    [[ "$line" =~ ^[\#\n[:space:]].*$ ]] && continue # If line begins with characters that are not allowed, skip this run of the loop
-    arr[$i]="$line"
-    ((i+=1))
+  local filepath="$DOTTED_ROOT/assets/" # Change the value of filepath to read files in a different dir
+
+  # initializing local vars
+  local line # stores current line in the read
+
+  # indicate what characters (at the start of a line) should cause that line to be skipped
+  local chars_to_ignore=("#" "\n" "[:space:]")
+  # local chars_to_ignore="\#\n[:space:]" # I'm leaving this here for now in case the array version of the "chars" to ignore stops working for some reason
+
+  while read line; do
+    # Check to make sure a line doesn't begin with any of the characters in $chars_to_ignore
+    if [[ "$line" =~ ^[^${chars_to_ignore[@]}] ]]; then 
+      echo "$line"
+    fi
   done < "${filepath}$1"
 
-  # Return the new array of stuff
-  echo "${arr[@]}"
-
 }
+
+
+
 
