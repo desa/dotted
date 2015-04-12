@@ -9,7 +9,15 @@
 DOTTED_ROOT="$(echo "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )")"
 
 
+# This snippet of code will prevent this script from running with the wrong version of bash
+if [ "$BASH" != "$(which bash)" ]; then
+  echo "$BASH != to $(which bash)"
+  echo "Usage error: Please do $0 to run this script."
+  exit 1
+fi
 
+# Load up the dependencies
+source "${DOTTED_ROOT}/scripts/dependencies/functions.sh"
 
 # Do homebrew stuff
 echo "Preparing to install homebrew and binaries..."

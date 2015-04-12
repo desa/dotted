@@ -23,6 +23,7 @@ confirm() {
   if [ "$FORCE_CONFIRM" = true ]; then
     echo "yes"
   else
+    [ ! -z "$1" ] && echo "$1"
     local choice
     read -p "Continue (y/n): " -n 1 -r choice
     case "$choice" in 

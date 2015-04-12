@@ -7,59 +7,35 @@
 # The version below is not actually how I now want this to work.
 # Rather than running this scripting code, I'm going to just copy some pre-created files over to the system
 
-# Let's alias some open commands to open files in my brosers
-# First we'll have to create a new oh-my-zsh file to put these aliases in:
 
-ZSH_ALIASES="$HOME/.oh-my-zsh/custom/zsh_aliases.zsh"
+# If .zshrc doesn't already exist then add it to the home directory
+if [ ! -f ~/.zshrc ]; then
+  cp "${DOTTED_ROOT}/assets/files/zsh_config/zshrc" "$HOME/.zshrc"
+fi
 
-# Now we'll add some aliases to that file
-aliases=(
-  "reld='. ~/.zshrc'" 
-  "chrome='open -a \"Google Chrome\"'"
-  "safari='open -a \"Safari\"'"
-  "gti='git'"
-  "got='git'"
-  "gpo=\'git push origin \$(current_branch)\'"
-  "ga='git add'"
-  "gaa='git add --all'"
-  "gs='git st'"
-  "rr='rm -r'"
-  "rrf='rm -rf'"
-  "cpdir='cp -R'"
-) 
+# Next up, let's copy some files over to ZSH_CUSTOM directory to be used by oh-my-zsh if it exists
 
-touch "$ZSH_ALIASES"
+# Edit the file names in this array to add/remove files to ZSH_CUSTOM dir
+ohmhzsh_custom_configs=("zsh_aliases.zsh" "zsh_functions.zsh" "zsh_vars.zsh")
+if [ ! -z "${ZSH_CUSTOM}" ]; then
+  for file in "${ohmhzsh_custom_configs[@]}"; do
+    # first check if the file already exists
+    if [ ! -f "${ZSH_CUSTOM}/${file}" ]; then
+      # If we're here, the file does not already exist, so we copy
+      cp "${DOTTED_ROOT}/assets/files/zsh_config/${file}" "${ZSH_CUSTOM}/"
+    fi
+  done
+fi
 
-# Let's add a first line to the file
-echo "# Additional Aliases to Use in zsh\n" >> "$ZSH_ALIASES"
-
-# now insert our aliases into our new "aliases" file
-printf "alias %s\n" "${aliases[@]}" >> "$ZSH_ALIASES" # I think this should work well and it won't need to run a loop
-
-# for i in "${aliases[@]}"
-# do
-#   echo "Adding alias $i ..."
-#   echo "alias "$i >> "$ZSH_ALIASES"
-# done
-
-
-# One more thing, let's create a custom "functions" file for oh-my-zsh
-echo "Creating a custom zsh functions file..."
-ZSH_FUNCS="$HOME/.oh-my-zsh/custom/zsh_functions.zsh"
-
-# Create the file
-touch "$ZSH_FUNCS"
-
-# Now add a function that i like
-cat <<-EOF >> "$ZSH_FUNCS"
-	# This file contains custom functions for use in my terminal environment
-	function MakeDirAndChange {
-  	  echo "Creating directory $1"
-  	  mkdir "$1"
-  	  cd "$1"
-	}
-alias mkcd='MakeDirAndChange'
-EOF
+# Now check with the user to see if they'd like to add the global configuration directives to their bash setup
+if [ "$(confirm 'Would you like to use the global config directives in bash?')" == "yes" ]; then
+  backup_name=".zshrc.dotted_backup-$(date +%Y-%m-%d-%H-%M-%S)"
+  echo "Backing up existing '.zshrc' => ${backup_name}"
+  cp "$HOME/.zshrc" "$HOME/${backup_name}"
+  echo "# Global Configuration Directive - Added by Dotted" >> ~/.zshrc
+  echo "# Comment out the line below to remove global config directives from your shell" >> ~/.zshrc
+  echo "source ~/.shell_configuration" >> ~/.zshrc # Adds the configurations to the zshrc file
+fi
 
 LAST_COMMAND=$?
 if [ "$LAST_COMMAND" -gt "0" ]; then

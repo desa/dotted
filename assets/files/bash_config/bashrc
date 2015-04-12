@@ -7,7 +7,6 @@
 #
 # ------------------------------------------------------------------------------
 
-
 # Start setting up, first:
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return

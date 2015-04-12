@@ -2,6 +2,8 @@
 # Modified: 4/9/15
 # Place any apps you'd like cask to install on your system in this file
 # Each app should be on its own line without any spaces in front of it
+# You can disable installation of an app by commenting out the line it 
+# is on or by removing the line entirely.
 
 # App List:
 

@@ -26,38 +26,25 @@ fi
 # Now add PATH to the environment
 export PATH
 
-# Color definitions
-# Add the .bash_colors file to the environment
-if [ -f ~/.bash_colors ]; then
-  . ~/.bash_colors
-fi
+# => Move the global_config_files setup here to have bash specific files override them
 
-# Variable defnitions
-# Add .bash_vars to the environment
-if [ -f ~/.bash_vars ]; then
-  . ~/.bash_vars
-fi
+# BASH SPECIFIC CONFIGURATION
+# ------------------------------------------------------------------------------------------------
+config_files=(".bash_colors" ".bash_vars" ".bash_functions" ".bashrc" ".bash_aliases" ".git-completion.bash")
+for file in "${config_files[@]}"; do
+	if [ -f ~/"$file" ]; then
+		source ~/"$file"
+	fi
+done
 
-# Function definitions
-# .bash_functions added to environment
-if [ -f ~/.bash_functions ]; then
-    . ~/.bash_functions
-fi
-
-# Run the statements in bashrc
-if [ -f ~/.bashrc ]; then
-  . ~/.bashrc
-fi
-
-# Alias definitions.
-# Adding .bash_aliases to the environment
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# Add git command completion for bash
-# .git-completion.bash added to the environment
-if [ -f ~/.git-completion.bash ]; then
-  . ~/.git-completion.bash
-fi
-
+# GLOBAL (ALL SHELLS) CONFIGURATION
+# ------------------------------------------------------------------------------------------------
+# If you don't want the global config files to override the bash specific files, then move this up above the previous statements
+# If you don't want these to do anything, just comment out these lines
+global_config_files=(".shell_variables" ".shell_aliases" ".shell_functions" )
+# load each file in "global_config_files" in the order they appear in the array
+for file in "${global_config_files[@]}"; do
+	if [ -f ~/"$file" ]; then
+		source ~/"$file"
+	fi	
+done
