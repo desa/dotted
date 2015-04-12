@@ -1,5 +1,6 @@
 #!/bin/bash
-# Run this file as sudo with `sudo bash system_setup.sh`
+# dotted/install.sh
+# Run this file as sudo like this: `sudo ./install.sh`
 # Alternatively, you can do:
 # `sudo -v` then:
 # `sudo bash system_setup.sh`
